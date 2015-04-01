@@ -14,7 +14,7 @@ describe('Inference:', function () {
                 var exp = parseAndInferenceExpression("Math.PI");
                 exp.should.have.property("extra");
                 exp.extra.should.have.property("type", TYPES.NUMBER);
-                exp.extra.should.have.property("staticValue", Math.PI);
+                exp.extra.should.have.property("constantValue", Math.PI);
 
             });
             it("access unknown property ? undefined", function () {
@@ -26,31 +26,31 @@ describe('Inference:', function () {
                 var exp = parseAndInferenceExpression("Math.cos(0.0)");
                 exp.should.have.property("extra");
                 exp.extra.should.have.property("type", TYPES.NUMBER);
-                exp.extra.should.have.property("staticValue", 1);
+                exp.extra.should.have.property("constantValue", 1);
             });
             it("call Math.atan2(number,number) ? number", function () {
                 var exp = parseAndInferenceExpression("Math.atan2(Math.PI, 0)");
                 exp.should.have.property("extra");
                 exp.extra.should.have.property("type", TYPES.NUMBER);
-                exp.extra.should.have.property("staticValue", Math.PI / 2);
+                exp.extra.should.have.property("constantValue", Math.PI / 2);
             });
             it("call Math.min(number,number,...) ? number", function () {
                 var exp = parseAndInferenceExpression("Math.min(Math.PI, 4, -1)");
                 exp.should.have.property("extra");
                 exp.extra.should.have.property("type", TYPES.NUMBER);
-                exp.extra.should.have.property("staticValue", -1);
+                exp.extra.should.have.property("constantValue", -1);
             });
             it("call Math.floor(number) ? number", function () {
                 var exp = parseAndInferenceExpression("Math.floor(5.5)");
                 exp.should.have.property("extra");
                 exp.extra.should.have.property("type", TYPES.NUMBER);
-                exp.extra.should.have.property("staticValue", 5);
+                exp.extra.should.have.property("constantValue", 5);
             });
             it("Math.cos(number, number): ignore additional parameters", function () {
                 var exp = parseAndInferenceExpression("Math.cos(0.0, 2.0)");
                 exp.should.have.property("extra");
                 exp.extra.should.have.property("type", TYPES.NUMBER);
-                exp.extra.should.have.property("staticValue", 1);
+                exp.extra.should.have.property("constantValue", 1);
             });
             it("Math.cos(string) ? throw invalid parameters type", function () {
                 var exp = parseAndInferenceExpression("Math.cos('hallo')");
